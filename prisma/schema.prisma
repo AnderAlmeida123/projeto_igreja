@@ -1,0 +1,90 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model pessoas {
+  id              String @id @default(uuid())
+  nome            String  @db.VarChar(255) 
+  cpf             String  @db.Char(11)  @unique
+  dataNascimento  DateTime  @db.Date()
+  sexo            String
+  endereco        endereco[]
+  contato         contato[]
+  comunidade      comunidade[]
+  sacramento      sacramento[]
+
+}
+
+model contato{
+  id              String @id @default(uuid())
+  celular         String  @db.Char(11)
+  tel_contato     String  @db.Char(11)
+  email           String  @db.VarChar(100)
+  pessoas_id   pessoas @relation(fields: [id_pessoas], references: [id])
+  id_pessoas   String   @unique
+}
+
+model endereco {
+  id              String  @id @default(uuid())
+  cep             String  @db.Char(9)
+  estado          String  @db.VarChar(255)
+  cidade          String  @db.VarChar(255)
+  bairro          String  @db.VarChar(255)
+  rua             String  @db.VarChar(255)
+  numero          String  @db.Char(5)
+  referencia      String?
+  pessoas_id pessoas  @relation(fields: [id_pessoas],references: [id])
+  id_pessoas       String  @unique
+}
+
+model sacramento {
+  id               String  @id @default(uuid())
+  local_sacramento String  @db.Text
+  data_hora_sacramento  DateTime  @db.Timestamp()
+  pessoas_id  pessoas @relation(fields: [id_pessoas],references: [id])
+  id_pessoas      String  @unique
+  tipo_sacramento tipo_sacramento @relation(fields: [tipo_sacramento_id],references: [id])
+  tipo_sacramento_id  String @unique
+}
+
+model tipo_sacramento {
+  id               String  @id @default(uuid())
+  tipo_sacramento  String  @db.VarChar(255)
+  sacramento      sacramento[]
+}
+
+model comunidade {
+  id               String  @id  @default(uuid())
+  comunidade       String  @db.VarChar(100)
+  bairro           String  @db.VarChar(100)
+  pessoas   pessoas @relation(fields: [responsavel],references: [id])  
+  responsavel      String  @db.VarChar(100) 
+  calendario       calendario[]
+}
+
+model calendario {
+  id               String  @id @default(uuid())
+  tipo_evento      String  @db.Text
+  data_hora        DateTime @db.Timestamp()
+  titulo_evento    String   @db.VarChar(255)
+  descricao        String   @db.Text
+  comunidade   comunidade @relation(fields: [id_comunidade],references: [id])
+  id_comunidade    String  @unique
+  tipoEvento   tipo_evento @relation(fields: [id_tipo_evento],references: [id])
+  id_tipo_evento  String    @unique
+}
+
+model tipo_evento {
+  id              String @id @default(uuid())
+  tipo_evento     String  @db.VarChar(255)
+  calendario      calendario[]
+}
