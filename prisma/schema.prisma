@@ -21,7 +21,10 @@ model pessoas {
   contato         contato[]
   comunidade      comunidade[]
   sacramento      sacramento[]
-
+  setor           setor[]
+  membroSetor     membroSetor[]
+  turma           turma[]
+  membrosTurma    membrosTurma[]
 }
 
 model contato{
@@ -69,6 +72,7 @@ model comunidade {
   pessoas   pessoas @relation(fields: [responsavel],references: [id])  
   responsavel      String  @db.VarChar(100) 
   calendario       calendario[]
+  setor            setor[]
 }
 
 model calendario {
@@ -88,3 +92,46 @@ model tipoEvento {
   tipoEvento     String  @db.VarChar(255)
   calendario      calendario[]
 }
+
+model setor {
+  id              String @id @default(uuid()) @unique
+  descricao       String  @db.Text
+  setor           String  @db.VarChar(255)
+  pessoas       pessoas @relation(fields: [reponsavel],references: [id])
+  reponsavel      String  @db.VarChar(100)
+  comunidade    comunidade  @relation(fields: [comunidadeId],references: [id])
+  comunidadeId    String
+  membroSetor   membroSetor[]
+  turma         turma[]
+}
+
+model membroSetor {
+  id              String @id  @default(uuid())  @unique
+  dataEntrada     DateTime @db.Date
+  dataSaida       DateTime @db.Date
+  setor        setor  @relation(fields: [setorId],references: [id])
+  setorId         String
+  pessoas      pessoas  @relation(fields: [membrosId],references: [id])
+  membrosId       String
+}
+
+model turma {
+  id              String  @id @default(uuid())  @unique
+  dataInicio      DateTime  @db.Date
+  dataTermino     DateTime  @db.Date
+  turma           String    @db.VarChar(255)
+  pessoas       pessoas @relation(fields: [profId],references: [id])
+  profId          String      
+  setor         setor   @relation(fields: [setorId],references: [id])
+  setorId         String
+  membrosTurma    membrosTurma[]
+}
+
+model membrosTurma {
+  id              String  @id @default(uuid())
+  pessoas      pessoas  @relation(fields: [membrosTurmaId], references: [id])
+  membrosTurmaId  String
+  turma         turma   @relation(fields: [turmaId], references: [id])
+  turmaId         String
+}
+
