@@ -27,10 +27,10 @@ model pessoas {
 model contato{
   id              String @id @default(uuid()) @unique
   celular         String  @db.Char(11)
-  tel_contato     String  @db.Char(11)
+  telContato     String  @db.Char(11)
   email           String  @db.VarChar(100)
-  pessoas   pessoas @relation(fields: [pessoas_id], references: [id])
-  pessoas_id   String 
+  pessoas   pessoas @relation(fields: [pessoasId], references: [id])
+  pessoasId   String 
 }
 
 model endereco {
@@ -42,23 +42,23 @@ model endereco {
   rua             String  @db.VarChar(255)
   numero          String  @db.Char(5)
   referencia      String?
-  pessoas pessoas  @relation(fields: [pessoas_id],references: [id])
-  pessoas_id       String 
+  pessoas pessoas  @relation(fields: [pessoasId],references: [id])
+  pessoasId       String 
 }
 
 model sacramento {
   id               String  @id @default(uuid()) @unique
-  local_sacramento String  @db.Text
-  data_hora_sacramento  DateTime  @db.Timestamp()
-  pessoas  pessoas @relation(fields: [pessoas_id],references: [id])
-  pessoas_id      String
-  tipoSacramento tipo_sacramento @relation(fields: [tipo_sacramento_id],references: [id])
-  tipo_sacramento_id  String
+  localSacramento String  @db.Text
+  dataHoraSacramento  DateTime  @db.Timestamp()
+  pessoas  pessoas @relation(fields: [pessoasId],references: [id])
+  pessoasId      String
+  tipoSacramento tipoSacramento @relation(fields: [tipoSacramentoId],references: [id])
+  tipoSacramentoId  String
 }
 
-model tipo_sacramento {
+model tipoSacramento {
   id               String  @id @default(uuid()) @unique
-  tipo_sacramento  String  @db.VarChar(255)
+  tipoSacramento  String  @db.VarChar(255)
   sacramento      sacramento[]
 }
 
@@ -73,18 +73,18 @@ model comunidade {
 
 model calendario {
   id               String  @id @default(uuid()) @unique
-  tipo_evento      String  @db.Text
-  data_hora        DateTime @db.Timestamp()
-  titulo_evento    String   @db.VarChar(255)
+  tipoEvento      String  @db.Text
+  dataHora        DateTime @db.Timestamp()
+  tituloEvento    String   @db.VarChar(255)
   descricao        String   @db.Text
-  comunidade   comunidade @relation(fields: [comunidade_id],references: [id])
-  comunidade_id    String
-  tipoEvento   tipo_evento @relation(fields: [tipo_evento_id],references: [id])
-  tipo_evento_id  String
+  comunidade   comunidade @relation(fields: [comunidadeId],references: [id])
+  comunidadeId    String
+  evento   tipoEvento @relation(fields: [tipoEventoId],references: [id])
+  tipoEventoId  String
 }
 
-model tipo_evento {
+model tipoEvento {
   id              String @id @default(uuid()) @unique
-  tipo_evento     String  @db.VarChar(255)
+  tipoEvento     String  @db.VarChar(255)
   calendario      calendario[]
 }
