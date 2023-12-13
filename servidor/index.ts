@@ -7,20 +7,39 @@ async function main(){
     console.log("executando")
  
     
-    // const pessoa = prisma.pessoa.create({
-    //     data:{
-    //         nome:"",                   
-    //         cpf:"",               
-    //         dataNascimento: new Date(""),       
-    //         sexo:""
-    //     }
-    // })
-    // console.dir(pessoa, {depth: null})
+    const pessoa = await prisma.pessoa.create({
+        data:{
+            nome:"",                   
+            cpf:"",               
+            dataNascimento: new Date(""),       
+            sexo:"",
+            contato:{
+                create:{
+                    celular:"",
+                    telContato:"",
+                    email:""
+                }
+            }
+        }
+    })
+    console.dir(pessoa, {depth: null})
 
-        const pessoaBuscar = prisma.pessoa.findMany()
-        console.dir(pessoaBuscar, {depth: null})
+        // const pessoaBuscar = await prisma.pessoa.findMany()
+        // console.dir(pessoaBuscar, {depth: null})
 
-    // const pessoaDelete = prisma.pessoa.delete({
+        // const pessoaAtualizar = await prisma.pessoa.update({
+        //     where:{
+        //         id:""
+        //     },
+        //     data:{
+        //         nome:"",
+        //         cpf:"",
+        //         dataNascimento: new Date(""),
+        //         sexo:""
+        //     }
+        // })
+
+    // const pessoaDelete = await prisma.pessoa.delete({
     //     where:{
     //         id:""
     //     }
