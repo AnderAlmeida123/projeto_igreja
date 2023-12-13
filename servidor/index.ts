@@ -17,7 +17,7 @@ async function main(){
     // })
     // console.dir(pessoa, {depth: null})
 
-        const pessoaBuscar = prisma.pessoa.findMany()
+        const pessoaBuscar = await prisma.pessoa.findMany()
         console.dir(pessoaBuscar, {depth: null})
 
     // const pessoaDelete = prisma.pessoa.delete({
