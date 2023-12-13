@@ -11,10 +11,10 @@ datasource db {
 }
 
 model pessoa {
-  id             String         @id @unique @default(uuid())
-  nome           String         @db.VarChar(255)
-  cpf            String         @unique @db.Char(11)
-  dataNascimento DateTime       @db.Date()
+  id             String        @id @unique @default(uuid())
+  nome           String        @db.VarChar(255)
+  cpf            String        @unique @db.Char(11)
+  dataNascimento DateTime      @db.Date()
   sexo           String
   endereco       endereco[]
   contato        contato[]
@@ -27,12 +27,12 @@ model pessoa {
 }
 
 model contato {
-  id         String  @id @unique @default(uuid())
-  celular    String  @db.Char(11)
-  telContato String  @db.Char(11)
-  email      String  @db.VarChar(100)
-  pessoa    pessoa @relation(fields: [pessoaId], references: [id])
-  pessoaId  String
+  id         String @id @unique @default(uuid())
+  celular    String @db.Char(11)
+  telContato String @db.Char(11)
+  email      String @db.VarChar(100)
+  pessoa     pessoa @relation(fields: [pessoaId], references: [id])
+  pessoaId   String
 }
 
 model endereco {
@@ -44,16 +44,16 @@ model endereco {
   rua        String  @db.VarChar(255)
   numero     String  @db.Char(5)
   referencia String?
-  pessoa    pessoa @relation(fields: [pessoaId], references: [id])
-  pessoaId  String
+  pessoa     pessoa  @relation(fields: [pessoaId], references: [id])
+  pessoaId   String
 }
 
 model sacramento {
   id                 String         @id @unique @default(uuid())
   localSacramento    String         @db.Text
   dataHoraSacramento DateTime       @db.Timestamp()
-  pessoa            pessoa        @relation(fields: [pessoaId], references: [id])
-  pessoaId          String
+  pessoa             pessoa         @relation(fields: [pessoaId], references: [id])
+  pessoaId           String
   tipoSacramento     tipoSacramento @relation(fields: [tipoSacramentoId], references: [id])
   tipoSacramentoId   String
 }
@@ -65,13 +65,13 @@ model tipoSacramento {
 }
 
 model comunidade {
-  id          String       @id @unique @default(uuid())
-  comunidade  String       @db.VarChar(100)
-  bairro      String       @db.VarChar(100)
-  pessoa     pessoa      @relation(fields: [responsavelId], references: [id])
+  id            String       @id @unique @default(uuid())
+  comunidade    String       @db.VarChar(100)
+  bairro        String       @db.VarChar(100)
+  pessoa        pessoa       @relation(fields: [responsavelId], references: [id])
   responsavelId String       @db.VarChar(100)
-  calendario  calendario[]
-  setor       setor[]
+  calendario    calendario[]
+  setor         setor[]
 }
 
 model calendario {
@@ -96,7 +96,7 @@ model setor {
   id           String        @id @unique @default(uuid())
   descricao    String        @db.Text
   setor        String        @db.VarChar(255)
-  pessoa      pessoa       @relation(fields: [reponsavel], references: [id])
+  pessoa       pessoa        @relation(fields: [reponsavel], references: [id])
   reponsavel   String        @db.VarChar(100)
   comunidade   comunidade    @relation(fields: [comunidadeId], references: [id])
   comunidadeId String
@@ -110,26 +110,26 @@ model membroSetor {
   dataSaida   DateTime @db.Date
   setor       setor    @relation(fields: [setorId], references: [id])
   setorId     String
-  pessoa     pessoa  @relation(fields: [membrosId], references: [id])
+  pessoa      pessoa   @relation(fields: [membrosId], references: [id])
   membrosId   String
 }
 
 model turma {
-  id           String         @id @unique @default(uuid())
-  dataInicio   DateTime       @db.Date
-  dataTermino  DateTime       @db.Date
-  turma        String         @db.VarChar(255)
+  id          String        @id @unique @default(uuid())
+  dataInicio  DateTime      @db.Date
+  dataTermino DateTime      @db.Date
+  turma       String        @db.VarChar(255)
   pessoa      pessoa        @relation(fields: [profId], references: [id])
-  profId       String
-  setor        setor          @relation(fields: [setorId], references: [id])
-  setorId      String
+  profId      String
+  setor       setor         @relation(fields: [setorId], references: [id])
+  setorId     String
   membroTurma membroTurma[]
 }
 
 model membroTurma {
-  id             String  @id @default(uuid())
+  id            String @id @default(uuid())
   pessoa        pessoa @relation(fields: [membroTurmaId], references: [id])
   membroTurmaId String
-  turma          turma   @relation(fields: [turmaId], references: [id])
-  turmaId        String
+  turma         turma  @relation(fields: [turmaId], references: [id])
+  turmaId       String
 }
