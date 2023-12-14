@@ -7,7 +7,6 @@ async function main(){
     console.log("executando")
  
     
-<<<<<<< HEAD
     // const pessoa = await prisma.pessoa.create({
     //     data:{
     //         nome:"ander",                   
@@ -24,56 +23,30 @@ async function main(){
     //     }
     // })
     // console.dir(pessoa, {depth: null})
-=======
-    const pessoa = await prisma.pessoa.create({
-        data:{
-            nome:"",                   
-            cpf:"",               
-            dataNascimento: new Date(""),       
-            sexo:"",
-            contato:{
-                create:{
-                    celular:"",
-                    telContato:"",
-                    email:""
-                }
-            }
-        }
-    })
-    console.dir(pessoa, {depth: null})
->>>>>>> 6d8ebaa47def15ff668afdc1819286f72a25952c
 
         // const pessoaBuscar = await prisma.pessoa.findMany()
         // console.dir(pessoaBuscar, {depth: null})
 
-        // const pessoaAtualizar = await prisma.pessoa.update({
-        //     where:{
-        //         id:""
-        //     },
-        //     data:{
-        //         nome:"",
-        //         cpf:"",
-        //         dataNascimento: new Date(""),
-        //         sexo:""
-        //     }
-        // })
+//         const pessoaAtualizar = await prisma.pessoa.update({
+//             where:{
+//                 id:""
+//             },
+//             data:{
+//                 nome:"",
+//                 cpf:"",
+//                 dataNascimento: new Date(""),
+//                 sexo:""
+//             }
+//         })
 
-<<<<<<< HEAD
+
     const pessoaDelete = await prisma.pessoa.delete({
         where:{
             id:"7dc39d5a-48fa-46da-82e9-7293782828e8"
         }
     })
     console.dir(pessoaDelete, {depth: null})
-=======
-    // const pessoaDelete = await prisma.pessoa.delete({
-    //     where:{
-    //         id:""
-    //     }
-    // })
-    // console.dir(pessoaDelete, {depth: null})
->>>>>>> 6d8ebaa47def15ff668afdc1819286f72a25952c
-}
+ }
 
 
 main().then(async (e) => {
