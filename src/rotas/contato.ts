@@ -1,5 +1,5 @@
 import { Router } from "express";
-import * as db from "../Db/contato";
+import * as db from "../db/contato";
 
 const routes = Router();
 
@@ -41,9 +41,9 @@ routes.patch("/:id", async (req, res) => {
   res.json(contato).status(200);
 });
 
-// READ - One
-routes.get("/:id", async (req, res) => {
+// DELETE
+routes.delete("/:id", async (req, res) => {
   await db.deleteById(req.params.id);
-  res.status(200);
+  res.send("Excluído com sucesso").status(200);
 });
 export default routes;

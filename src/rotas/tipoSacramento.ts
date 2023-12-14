@@ -1,5 +1,5 @@
 import { Router } from "express";
-import * as db from "../Db/tipoSacramento";
+import * as db from "../db/tipoSacramento";
 
 const routes = Router();
 
