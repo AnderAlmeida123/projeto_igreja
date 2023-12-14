@@ -11,15 +11,17 @@ datasource db {
 }
 
 model pessoa {
-  id             String       @id @unique @default(uuid())
-  nome           String       @db.VarChar(255)
-  cpf            String       @unique @db.Char(11)
-  dataNascimento DateTime     @db.Date()
-  sexo           String
-  endereco       endereco[]
-  contato        contato[]
-  comunidade     comunidade[]
-  sacramento     sacramento[]
+  id                    String       @id @unique @default(uuid())
+  nome                  String       @db.VarChar(255)
+  cpf                   String       @unique @db.Char(11)
+  dataNascimento        DateTime     @db.Date()
+  sexo                  String
+  endereco              endereco[]
+  contato               contato[]
+  sacramento            sacramento[]
+  comunidadeResponsavel comunidade[] @relation("ResponsavelComunidade")
+  comunidade            comunidade   @relation("MembroComunidade", fields: [comunidadeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  comunidadeId          String
 }
 
 model contato {
@@ -61,12 +63,13 @@ model tipoSacramento {
 }
 
 model comunidade {
-  id            String       @id @unique @default(uuid())
-  comunidade    String       @db.VarChar(100)
-  bairro        String       @db.VarChar(100)
-  pessoa        pessoa       @relation(fields: [responsavelId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  responsavelId String       @db.VarChar(100)
-  calendario    calendario[]
+  id             String       @id @unique @default(uuid())
+  nomeComunidade String       @db.VarChar(100)
+  bairro         String       @db.VarChar(100)
+  membros        pessoa[]     @relation("MembroComunidade")
+  responsavel    pessoa?      @relation("ResponsavelComunidade", fields: [responsavelId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  responsavelId  String?
+  calendarios    calendario[]
 }
 
 model calendario {
