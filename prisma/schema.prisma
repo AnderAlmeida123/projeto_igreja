@@ -10,126 +10,81 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model pessoa {
-  id             String        @id @unique @default(uuid())
-  nome           String        @db.VarChar(255)
-  cpf            String        @unique @db.Char(11)
-  dataNascimento DateTime      @db.Date()
-  sexo           String
-  endereco       endereco[]
-  contato        contato[]
-  comunidade     comunidade[]
-  sacramento     sacramento[]
-  setor          setor[]
-  membroSetor    membroSetor[]
-  turma          turma[]
-  membrosTurma   membroTurma[]
+
+model pessoas {
+  id              String @id @default(uuid()) @unique
+  nome            String  @db.VarChar(255) 
+  cpf             String  @db.Char(11)  @unique
+  dataNascimento  DateTime  @db.Date()
+  sexo            String
+  endereco        endereco[]
+  contato         contato[]
+  comunidade      comunidade[]
+  sacramento      sacramento[]
+
 }
 
-model contato {
-  id         String @id @unique @default(uuid())
-  celular    String @db.Char(11)
-  telContato String @db.Char(11)
-  email      String @db.VarChar(100)
-  pessoa     pessoa @relation(fields: [pessoaId], references: [id])
-  pessoaId   String
+model contato{
+  id              String @id @default(uuid()) @unique
+  celular         String  @db.Char(11)
+  tel_contato     String  @db.Char(11)
+  email           String  @db.VarChar(100)
+  pessoas   pessoas @relation(fields: [pessoas_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  pessoas_id   String 
 }
 
 model endereco {
-  id         String  @id @unique @default(uuid())
-  cep        String  @db.Char(9)
-  estado     String  @db.VarChar(255)
-  cidade     String  @db.VarChar(255)
-  bairro     String  @db.VarChar(255)
-  rua        String  @db.VarChar(255)
-  numero     String  @db.Char(5)
-  referencia String?
-  pessoa     pessoa  @relation(fields: [pessoaId], references: [id])
-  pessoaId   String
+  id              String  @id @default(uuid())  @unique
+  cep             String  @db.Char(9)
+  estado          String  @db.VarChar(255)
+  cidade          String  @db.VarChar(255)
+  bairro          String  @db.VarChar(255)
+  rua             String  @db.VarChar(255)
+  numero          String  @db.Char(5)
+  referencia      String?
+  pessoas pessoas  @relation(fields: [pessoas_id],references: [id], onDelete: Cascade, onUpdate: Cascade)
+  pessoas_id       String 
 }
 
 model sacramento {
-  id                 String         @id @unique @default(uuid())
-  localSacramento    String         @db.Text
-  dataHoraSacramento DateTime       @db.Timestamp()
-  pessoa             pessoa         @relation(fields: [pessoaId], references: [id])
-  pessoaId           String
-  tipoSacramento     tipoSacramento @relation(fields: [tipoSacramentoId], references: [id])
-  tipoSacramentoId   String
+  id               String  @id @default(uuid()) @unique
+  local_sacramento String  @db.Text
+  data_hora_sacramento  DateTime  @db.Timestamp()
+  pessoas  pessoas @relation(fields: [pessoas_id],references: [id], onDelete: Cascade, onUpdate: Cascade)
+  pessoas_id      String
+  tipoSacramento tipo_sacramento @relation(fields: [tipo_sacramento_id],references: [id], onDelete: Cascade, onUpdate: Cascade)
+  tipo_sacramento_id  String
 }
 
-model tipoSacramento {
-  id             String       @id @unique @default(uuid())
-  tipoSacramento String       @db.VarChar(255)
-  sacramento     sacramento[]
+model tipo_sacramento {
+  id               String  @id @default(uuid()) @unique
+  tipo_sacramento  String  @db.VarChar(255)
+  sacramento      sacramento[]
 }
 
 model comunidade {
-  id            String       @id @unique @default(uuid())
-  comunidade    String       @db.VarChar(100)
-  bairro        String       @db.VarChar(100)
-  pessoa        pessoa       @relation(fields: [responsavelId], references: [id])
-  responsavelId String       @db.VarChar(100)
-  calendario    calendario[]
-  setor         setor[]
+  id               String  @id  @default(uuid())  @unique
+  comunidade       String  @db.VarChar(100)
+  bairro           String  @db.VarChar(100)
+  pessoas   pessoas @relation(fields: [responsavel],references: [id], onDelete: Cascade, onUpdate: Cascade)  
+  responsavel      String  @db.VarChar(100) 
+  calendario       calendario[]
 }
 
 model calendario {
-  id           String     @id @unique @default(uuid())
-  tipoEvento   String     @db.Text
-  dataHora     DateTime   @db.Timestamp()
-  tituloEvento String     @db.VarChar(255)
-  descricao    String     @db.Text
-  comunidade   comunidade @relation(fields: [comunidadeId], references: [id])
-  comunidadeId String
-  evento       tipoEvento @relation(fields: [tipoEventoId], references: [id])
-  tipoEventoId String
+  id               String  @id @default(uuid()) @unique
+  tipo_evento      String  @db.Text
+  data_hora        DateTime @db.Timestamp()
+  titulo_evento    String   @db.VarChar(255)
+  descricao        String   @db.Text
+  comunidade   comunidade @relation(fields: [comunidade_id],references: [id], onDelete: Cascade, onUpdate: Cascade)
+  comunidade_id    String
+  tipoEvento   tipo_evento @relation(fields: [tipo_evento_id],references: [id], onDelete: Cascade, onUpdate: Cascade)
+  tipo_evento_id  String
 }
 
-model tipoEvento {
-  id         String       @id @unique @default(uuid())
-  tipoEvento String       @db.VarChar(255)
-  calendario calendario[]
-}
-
-model setor {
-  id           String        @id @unique @default(uuid())
-  descricao    String        @db.Text
-  setor        String        @db.VarChar(255)
-  pessoa       pessoa        @relation(fields: [reponsavel], references: [id])
-  reponsavel   String        @db.VarChar(100)
-  comunidade   comunidade    @relation(fields: [comunidadeId], references: [id])
-  comunidadeId String
-  membroSetor  membroSetor[]
-  turma        turma[]
-}
-
-model membroSetor {
-  id          String   @id @unique @default(uuid())
-  dataEntrada DateTime @db.Date
-  dataSaida   DateTime @db.Date
-  setor       setor    @relation(fields: [setorId], references: [id])
-  setorId     String
-  pessoa      pessoa   @relation(fields: [membrosId], references: [id])
-  membrosId   String
-}
-
-model turma {
-  id          String        @id @unique @default(uuid())
-  dataInicio  DateTime      @db.Date
-  dataTermino DateTime      @db.Date
-  turma       String        @db.VarChar(255)
-  pessoa      pessoa        @relation(fields: [profId], references: [id])
-  profId      String
-  setor       setor         @relation(fields: [setorId], references: [id])
-  setorId     String
-  membroTurma membroTurma[]
-}
-
-model membroTurma {
-  id            String @id @default(uuid())
-  pessoa        pessoa @relation(fields: [membroTurmaId], references: [id])
-  membroTurmaId String
-  turma         turma  @relation(fields: [turmaId], references: [id])
-  turmaId       String
+model tipo_evento {
+  id              String @id @default(uuid()) @unique
+  tipo_evento     String  @db.VarChar(255)
+  calendario      calendario[]
 }
