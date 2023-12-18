@@ -111,6 +111,7 @@ model setor {
     comunidadeId  String
     membroSetor   membroSetor[]
     turma         turma[]
+    estoque       estoque[]     @relation("setorProduto")
 }
 
 model membroSetor {
@@ -153,24 +154,23 @@ model tesouraria {
     dataMovimentacao DateTime   @db.Date
     comunidade       comunidade @relation(fields: [comunidadeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
     comunidadeId     String
-    dizimo           dizimo?    @relation(fields: [dizimoId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-    dizimoId         String?
 }
 
 model dizimo {
-    id            String       @id @unique @default(uuid())
-    meses         String       @db.VarChar(255)
-    valor         Decimal      @db.Money
-    tipoPagamento String       @db.Text
-    pessoa        pessoa?      @relation("integranteDizimo", fields: [pessoaId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    id            String  @id @unique @default(uuid())
+    meses         String  @db.VarChar(255)
+    valor         Decimal @db.Money
+    tipoPagamento String  @db.Text
+    pessoa        pessoa? @relation("integranteDizimo", fields: [pessoaId], references: [id], onDelete: Cascade, onUpdate: Cascade)
     pessoaId      String?
-    tesouraria    tesouraria[]
 }
 
 model estoque {
     id            String     @id @unique @default(uuid())
     produto       String     @db.VarChar(255)
     quantidade    Decimal    @db.Decimal
+    setor         setor?     @relation("setorProduto", fields: [setorId], references: [id], onDelete: SetNull, onUpdate: SetNull)
+    setorId       String?
     responsavel   pessoa?    @relation("responsavelEstoque", fields: [responsavelId], references: [id], onDelete: SetNull, onUpdate: Cascade)
     responsavelId String?
     comunidade    comunidade @relation(fields: [comunidadeId], references: [id], onDelete: Cascade, onUpdate: Cascade)

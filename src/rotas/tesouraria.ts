@@ -11,7 +11,7 @@ routes.post("/", async (req, res) => {
     tipoMovimentacao: req.body.tipoMovimentacao,
     descricao: req.body.descricao,
     valor: req.body.valor,
-    dataMovimentacao: req.body.dataMovimentacao,
+    dataMovimentacao: new Date(req.body.dataMovimentacao),
     comunidadeId: req.body.comunidadeId,
     dizimoId: req.body.dizimoId,
   });
