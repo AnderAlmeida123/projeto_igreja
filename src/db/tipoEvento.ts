@@ -2,12 +2,12 @@ import { Prisma, PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-interface TipoEvento {
+interface tipoEvento {
   id?: string;
   tipoEvento: string;
 }
 
-export async function create(data: TipoEvento) {
+export async function create(data: tipoEvento) {
   await prisma.$connect();
   const tipoEvento = await prisma.tipoEvento.create({
     data,
@@ -34,7 +34,7 @@ export async function readOne(id: string) {
   return tipoEvento;
 }
 
-export async function update(data: TipoEvento) {
+export async function update(data: tipoEvento) {
   await prisma.$connect();
   const tipoEvento = await prisma.tipoEvento.update({
     data,

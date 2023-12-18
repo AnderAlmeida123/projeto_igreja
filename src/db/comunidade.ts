@@ -38,6 +38,7 @@ export async function readOne(id: string) {
 
 export async function update(data: comunidade) {
   await prisma.$connect();
+  console.log(data);
   const comunidade = await prisma.comunidade.update({
     data,
     where: {

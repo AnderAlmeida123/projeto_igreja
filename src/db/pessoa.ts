@@ -12,6 +12,7 @@ interface pessoa {
 }
 
 export async function create(data: pessoa) {
+  console.log(data);
   await prisma.$connect();
   const pessoa = await prisma.pessoa.create({
     data,

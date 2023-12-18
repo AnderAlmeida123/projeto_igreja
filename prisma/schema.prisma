@@ -153,8 +153,8 @@ model tesouraria {
     dataMovimentacao DateTime   @db.Date
     comunidade       comunidade @relation(fields: [comunidadeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
     comunidadeId     String
-    dizimo           dizimo     @relation(fields: [dizimoId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-    dizimoId         String
+    dizimo           dizimo?    @relation(fields: [dizimoId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    dizimoId         String?
 }
 
 model dizimo {
@@ -170,7 +170,7 @@ model dizimo {
 model estoque {
     id            String     @id @unique @default(uuid())
     produto       String     @db.VarChar(255)
-    quantidade    String     @db.Text
+    quantidade    Decimal    @db.Decimal
     responsavel   pessoa?    @relation("responsavelEstoque", fields: [responsavelId], references: [id], onDelete: SetNull, onUpdate: Cascade)
     responsavelId String?
     comunidade    comunidade @relation(fields: [comunidadeId], references: [id], onDelete: Cascade, onUpdate: Cascade)

@@ -10,7 +10,7 @@ routes.post("/", async (req, res) => {
   const pessoa = await db.create({
     nome: req.body.nome,
     cpf: req.body.cpf,
-    dataNascimento: req.body.dataNascimento,
+    dataNascimento: new Date(req.body.dataNascimento),
     sexo: req.body.sexo,
     comunidadeId: req.body.comunidadeId,
   });

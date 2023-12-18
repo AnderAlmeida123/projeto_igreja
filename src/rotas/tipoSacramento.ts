@@ -7,6 +7,7 @@ const routes = Router();
 
 // CREATE
 routes.post("/", async (req, res) => {
+  console.log(req.body);
   const tipoSacramento = await db.create({
     tipoSacramento: req.body.tipoSacramento,
   });
