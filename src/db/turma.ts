@@ -46,6 +46,8 @@ export async function update(data: any) {
       id: data.id,
     },
   });
+  console.log(turma);
+
   await prisma.$disconnect();
   return turma;
 }

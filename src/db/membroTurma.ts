@@ -4,8 +4,9 @@ const prisma = new PrismaClient();
 
 interface membroTurma {
   id?: string;
-  membroTurma: string;
+  membroId: string;
   turmaId: string;
+  status: string;
 }
 
 export async function create(data: membroTurma) {
@@ -24,11 +25,18 @@ export async function readAll() {
   return membroTurmas;
 }
 
-export async function readOne(id: string) {
+export async function readOne(membroId: string, turmaId: string) {
   await prisma.$connect();
   const membroTurma = await prisma.membroTurma.findFirst({
     where: {
-      id,
+      AND: [
+        {
+          membroId,
+        },
+        {
+          turmaId,
+        },
+      ],
     },
   });
   await prisma.$disconnect();
@@ -40,18 +48,24 @@ export async function update(data: any) {
   const membroTurma = await prisma.membroTurma.update({
     data,
     where: {
-      id: data.id,
+      turmaId_membroId: {
+        membroId: data.membroId,
+        turmaId: data.turmaId,
+      },
     },
   });
   await prisma.$disconnect();
   return membroTurma;
 }
 
-export async function deleteById(id: string) {
+export async function deleteById(turmaId: string, membroId: string) {
   await prisma.$connect();
   const membroTurma = await prisma.membroTurma.delete({
     where: {
-      id,
+      turmaId_membroId: {
+        membroId,
+        turmaId,
+      },
     },
   });
   await prisma.$disconnect();

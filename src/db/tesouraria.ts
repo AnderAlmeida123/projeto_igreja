@@ -10,7 +10,6 @@ interface tesouraria {
   valor: Decimal;
   dataMovimentacao: Date;
   comunidadeId: string;
-  dizimoId: string;
 }
 
 export async function create(data: tesouraria) {

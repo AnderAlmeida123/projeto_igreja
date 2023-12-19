@@ -8,8 +8,9 @@ const routes = Router();
 // CREATE
 routes.post("/", async (req, res) => {
   const membroTurma = await db.create({
-    membroTurma: req.body.membroTurma,
+    membroId: req.body.membroId,
     turmaId: req.body.turmaId,
+    status: req.body.status,
   });
 
   res.json(membroTurma).status(200);
@@ -22,24 +23,24 @@ routes.get("/", async (req, res) => {
 });
 
 // READ - One
-routes.get("/:id", async (req, res) => {
-  const membroTurma = await db.readOne(req.params.id);
+routes.get("/:membroId/:setorId", async (req, res) => {
+  const membroTurma = await db.readOne(req.params.membroId, req.params.setorId);
   res.json(membroTurma).status(200);
 });
 
 // UPDATE
-routes.patch("/:id", async (req, res) => {
+routes.patch("/:turmaId/:membroId", async (req, res) => {
   const membroTurma = await db.update({
-    id: req.params.id,
-    membroTurma: req.body.membroTurma,
-    turmaId: req.body.turmaId,
+    membroId: req.params.membroId,
+    turmaId: req.params.turmaId,
+    status: req.body.status,
   });
   res.json(membroTurma).status(200);
 });
 
 // DELETE
-routes.delete("/:id", async (req, res) => {
-  await db.deleteById(req.params.id);
+routes.delete("/:membroId/:turmaId", async (req, res) => {
+  await db.deleteById(req.params.membroId, req.params.turmaId);
   res.send("Excluído com sucesso").status(200);
 });
 export default routes;

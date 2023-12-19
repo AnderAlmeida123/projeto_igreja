@@ -10,6 +10,7 @@ routes.post("/", async (req, res) => {
   const estoque = await db.create({
     produto: req.body.produto,
     quantidade: req.body.quantidade,
+    setorId: req.body.setorId,
     responsavelId: req.body.responsavelId,
     comunidadeId: req.body.comunidadeId,
   });
@@ -35,6 +36,7 @@ routes.patch("/:id", async (req, res) => {
     id: req.params.id,
     produto: req.body.produto,
     quantidade: req.body.quantidade,
+    setorId: req.body.setorId,
     responsavelId: req.body.responsavelId,
     comunidadeId: req.body.comunidadeId,
   });

@@ -6,7 +6,8 @@ interface estoque {
   id?: string;
   produto: string;
   quantidade: string;
-  responsavelId: string;
+  setorId?: string;
+  responsavelId?: string;
   comunidadeId: string;
 }
 

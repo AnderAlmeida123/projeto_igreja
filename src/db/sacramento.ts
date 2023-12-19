@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 interface sacramento {
   id?: string;
   localSacramento: string;
-  dataHoraSacramento: string;
+  dataHoraSacramento: Date;
   pessoaId: string;
   tipoSacramentoId: string;
 }
@@ -22,6 +22,7 @@ export async function create(data: sacramento) {
 export async function readAll() {
   await prisma.$connect();
   const sacramentos = await prisma.sacramento.findMany();
+  console.log(sacramentos);
   await prisma.$disconnect();
   return sacramentos;
 }

@@ -7,7 +7,6 @@ const routes = Router();
 
 // CREATE
 routes.post("/", async (req, res) => {
-  console.log(req.body);
   const tipoSacramento = await db.create({
     tipoSacramento: req.body.tipoSacramento,
   });
@@ -36,9 +35,9 @@ routes.patch("/:id", async (req, res) => {
   res.json(tipoSacramento).status(200);
 });
 
-// READ - One
-routes.get("/:id", async (req, res) => {
+// READ - DELETE
+routes.delete("/:id", async (req, res) => {
   await db.deleteById(req.params.id);
-  res.status(200);
+  res.send("Excluído com sucesso").status(200);
 });
 export default routes;

@@ -8,9 +8,8 @@ const routes = Router();
 // CREATE
 routes.post("/", async (req, res) => {
   const calendario = await db.create({
-    tipoEvento: req.body.tipoEvento,
-    dataHora: req.body.dataHora,
     tituloEvento: req.body.tituloEvento,
+    dataHora: new Date(req.body.dataHora),
     descricao: req.body.descricao,
     comunidadeId: req.body.comunidadeId,
     tipoEventoId: req.body.tipoEventoId,
@@ -33,15 +32,19 @@ routes.get("/:id", async (req, res) => {
 
 // UPDATE
 routes.patch("/:id", async (req, res) => {
-  const calendario = await db.update({
+  const calendarioUpdate: any = {
     id: req.params.id,
-    tipoEvento: req.body.tipoEvento,
-    dataHora: req.body.dataHora,
     tituloEvento: req.body.tituloEvento,
     descricao: req.body.descricao,
     comunidadeId: req.body.comunidadeId,
     tipoEventoId: req.body.tipoEventoId,
-  });
+  };
+
+  if (req.body.dataHora) {
+    calendarioUpdate.dataHora = new Date(req.body.dataHora);
+  }
+
+  const calendario = await db.update(calendarioUpdate);
   res.json(calendario).status(200);
 });
 

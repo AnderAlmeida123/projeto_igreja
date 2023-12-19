@@ -1,5 +1,6 @@
 import { Router } from "express";
 import * as db from "../db/turma";
+import { turma } from "@prisma/client";
 
 const routes = Router();
 
@@ -8,8 +9,8 @@ const routes = Router();
 // CREATE
 routes.post("/", async (req, res) => {
   const turma = await db.create({
-    dataInicio: req.body.dataInicio,
-    dataTermino: req.body.dataTermino,
+    dataInicio: new Date(req.body.dataInicio),
+    dataTermino: new Date(req.body.dataTermino),
     turma: req.body.turma,
     professorId: req.body.professorId,
     setorId: req.body.setorId,
@@ -32,14 +33,22 @@ routes.get("/:id", async (req, res) => {
 
 // UPDATE
 routes.patch("/:id", async (req, res) => {
-  const turma = await db.update({
+  const dadosAtualizados: any = {
     id: req.params.id,
-    dataInicio: req.body.dataInicio,
-    dataTermino: req.body.dataTermino,
     turma: req.body.turma,
     professorId: req.body.professorId,
     setorId: req.body.setorId,
-  });
+  };
+
+  if (req.body.dataInicio) {
+    dadosAtualizados.dataInicio = new Date(req.body.dataInicio);
+  }
+
+  if (req.body.dataTermino) {
+    dadosAtualizados.dataTermino = new Date(req.body.dataTermino);
+  }
+  console.log(dadosAtualizados);
+  const turma = await db.update(dadosAtualizados);
   res.json(turma).status(200);
 });
 

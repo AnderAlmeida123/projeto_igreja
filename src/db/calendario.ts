@@ -4,7 +4,6 @@ const prisma = new PrismaClient();
 
 interface calendario {
   id?: string;
-  tipoEvento: string;
   dataHora: Date;
   tituloEvento: string;
   descricao: string;
@@ -39,7 +38,7 @@ export async function readOne(id: string) {
   return calendario;
 }
 
-export async function update(data: any) {
+export async function update(data: calendario) {
   await prisma.$connect();
   const calendario = await prisma.calendario.update({
     data,

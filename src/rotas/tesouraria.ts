@@ -13,7 +13,6 @@ routes.post("/", async (req, res) => {
     valor: req.body.valor,
     dataMovimentacao: new Date(req.body.dataMovimentacao),
     comunidadeId: req.body.comunidadeId,
-    dizimoId: req.body.dizimoId,
   });
 
   res.json(tesouraria).status(200);
@@ -40,7 +39,6 @@ routes.patch("/:id", async (req, res) => {
     valor: req.body.valor,
     dataMovimentacao: req.body.dataMovimentacao,
     comunidadeId: req.body.comunidadeId,
-    dizimoId: req.body.dizimoId,
   });
   res.json(tesouraria).status(200);
 });

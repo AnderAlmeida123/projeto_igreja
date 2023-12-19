@@ -28,8 +28,8 @@ model pessoa {
     dizimo                dizimo[]     @relation("integranteDizimo")
     professor             turma[]      @relation("professor")
 
-    comunidade   comunidade @relation("MembroComunidade", fields: [comunidadeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-    comunidadeId String
+    comunidade   comunidade? @relation("MembroComunidade", fields: [comunidadeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    comunidadeId String?
 }
 
 model contato {
@@ -85,7 +85,6 @@ model comunidade {
 
 model calendario {
     id           String     @id @unique @default(uuid())
-    tipoEvento   String     @db.Text
     dataHora     DateTime   @db.Timestamp()
     tituloEvento String     @db.VarChar(255)
     descricao    String     @db.Text
@@ -138,10 +137,11 @@ model turma {
 }
 
 model membroTurma {
-    turma    turma  @relation(fields: [turmaId], references: [id])
+    turma    turma  @relation(fields: [turmaId], references: [id], onDelete: Cascade, onUpdate: Cascade)
     turmaId  String
-    membro   pessoa @relation(fields: [membroId], references: [id])
+    membro   pessoa @relation(fields: [membroId], references: [id], onDelete: Cascade, onUpdate: Cascade)
     membroId String
+    status   String
 
     @@id([turmaId, membroId])
 }

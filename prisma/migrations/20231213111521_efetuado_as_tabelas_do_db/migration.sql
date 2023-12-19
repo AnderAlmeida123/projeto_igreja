@@ -67,7 +67,6 @@ CREATE TABLE "comunidade" (
 -- CreateTable
 CREATE TABLE "calendario" (
     "id" TEXT NOT NULL,
-    "tipoEvento" TEXT NOT NULL,
     "dataHora" TIMESTAMP NOT NULL,
     "tituloEvento" VARCHAR(255) NOT NULL,
     "descricao" TEXT NOT NULL,

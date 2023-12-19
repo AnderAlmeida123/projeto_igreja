@@ -11,7 +11,7 @@ routes.post("/", async (req, res) => {
     tipoSacramentoId: req.body.tipoSacramentoId,
     localSacramento: req.body.localSacramento,
     pessoaId: req.body.pessoaId,
-    dataHoraSacramento: req.body.dataHoraSacramento,
+    dataHoraSacramento: new Date(req.body.dataHoraSacramento),
   });
 
   res.json(sacramento).status(200);
@@ -31,13 +31,17 @@ routes.get("/:id", async (req, res) => {
 
 // UPDATE
 routes.patch("/:id", async (req, res) => {
-  const sacramento = await db.update({
+  const sacramentoUpdate: any = {
     id: req.params.id,
-    tipoSacramentoId: req.body.tipoSacramentoId,
     localSacramento: req.body.localSacramento,
-    pessoaId: req.body.pessoaId,
-    dataHoraSacramento: req.body.dataHoraSacramento,
-  });
+  };
+
+  if ((req.body.dataHoraSacramento, req.body.tipoSacramentoId)) {
+    sacramentoUpdate.dataHoraSacramento = new Date(req.body.dataHoraSacramento);
+    sacramentoUpdate.tipoSacramentoId = req.body.tipoSacramentoId;
+  }
+
+  const sacramento = await db.update(sacramentoUpdate);
   res.json(sacramento).status(200);
 });
 
