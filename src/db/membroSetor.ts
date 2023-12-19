@@ -5,9 +5,9 @@ const prisma = new PrismaClient();
 interface membroSetor {
   id?: string;
   dataEntrada: Date;
-  dataSaida: Date;
+  dataSaida?: Date;
   setorId: string;
-  membroSetor: string;
+  membroSetorId: string;
 }
 
 export async function create(data: membroSetor) {
@@ -26,7 +26,7 @@ export async function readAll() {
   return membroSetores;
 }
 
-export async function readOne(id: string) {
+export async function readOne(id: String) {
   await prisma.$connect();
   const membroSetor = await prisma.membroSetor.findFirst({
     where: {

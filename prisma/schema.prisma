@@ -104,22 +104,22 @@ model tipoEvento {
 model setor {
     id            String        @id @unique @default(uuid())
     descricao     String        @db.Text
-    setor         String        @db.VarChar(255)
+    setor         String        @unique @db.VarChar(255)
     responsavel   pessoa?       @relation("responsavelSetor", fields: [responsavelId], references: [id], onDelete: SetNull, onUpdate: Cascade)
     responsavelId String?
     comunidade    comunidade    @relation(fields: [comunidadeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
     comunidadeId  String
-    membroSetor   membroSetor[]
+    membroSetor   membroSetor[] @relation("nomeSetor")
     turma         turma[]
     estoque       estoque[]     @relation("setorProduto")
 }
 
 model membroSetor {
-    dataEntrada   DateTime @db.Date
-    dataSaida     DateTime @db.Date
-    setor         setor    @relation(fields: [setorId], references: [id])
+    dataEntrada   DateTime  @db.Date()
+    dataSaida     DateTime? @db.Date()
+    setor         setor     @relation("nomeSetor", fields: [setorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
     setorId       String
-    membro        pessoa   @relation(fields: [membroSetorId], references: [id])
+    membro        pessoa    @relation(fields: [membroSetorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
     membroSetorId String
 
     @@id([setorId, membroSetorId])
@@ -127,8 +127,8 @@ model membroSetor {
 
 model turma {
     id          String        @id @unique @default(uuid())
-    dataInicio  DateTime      @db.Date
-    dataTermino DateTime      @db.Date
+    dataInicio  DateTime      @db.Date()
+    dataTermino DateTime      @db.Date()
     turma       String        @unique @db.VarChar(255)
     professor   pessoa?       @relation("professor", fields: [professorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
     professorId String?
@@ -151,7 +151,7 @@ model tesouraria {
     tipoMovimentacao String     @db.Text
     descricao        String     @db.Text
     valor            Decimal    @db.Money
-    dataMovimentacao DateTime   @db.Date
+    dataMovimentacao DateTime   @db.Date()
     comunidade       comunidade @relation(fields: [comunidadeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
     comunidadeId     String
 }
@@ -160,7 +160,7 @@ model dizimo {
     id            String  @id @unique @default(uuid())
     meses         String  @db.VarChar(255)
     valor         Decimal @db.Money
-    tipoPagamento String  @db.Text
+    tipoPagamento String  @db.VarChar(255)
     pessoa        pessoa? @relation("integranteDizimo", fields: [pessoaId], references: [id], onDelete: Cascade, onUpdate: Cascade)
     pessoaId      String?
 }

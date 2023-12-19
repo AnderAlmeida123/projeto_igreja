@@ -36,7 +36,7 @@ routes.patch("/:id", async (req, res) => {
     id: req.params.id,
     nome: req.body.nome,
     cpf: req.body.cpf,
-    dataNascimento: req.body.dataNascimento,
+    dataNascimento: new Date(req.body.dataNascimento),
     sexo: req.body.sexo,
     comunidadeId: req.body.comunidadeId,
   });

@@ -7,18 +7,19 @@ const routes = Router();
 
 // CREATE
 routes.post("/", async (req, res) => {
+  const dadosDoCep = await db.procuraCep(req.body.cep);
   const endereco = await db.create({
     cep: req.body.cep,
-    estado: req.body.estado,
-    cidade: req.body.cidade,
-    bairro: req.body.bairro,
-    rua: req.body.rua,
+    estado: dadosDoCep.uf,
+    cidade: dadosDoCep.localidade,
+    bairro: dadosDoCep.bairro,
+    rua: dadosDoCep.logradouro,
     numero: req.body.numero,
     referencia: req.body.referencia,
-    pessoaId: req.body.pessoaid,
+    pessoaId: req.body.pessoaId,
   });
 
-  res.json(endereco).status(200);
+  res.json(dadosDoCep).status(200);
 });
 
 // READ - All

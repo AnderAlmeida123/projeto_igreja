@@ -8,10 +8,10 @@ const routes = Router();
 // CREATE
 routes.post("/", async (req, res) => {
   const membroSetor = await db.create({
-    dataEntrada: req.body.dataEntrada,
-    dataSaida: req.body.dataSaida,
+    dataEntrada: new Date(req.body.dataEntrada),
+    dataSaida: new Date(req.body.dataSaida),
     setorId: req.body.setorId,
-    membroSetor: req.body.membroSetor,
+    membroSetorId: req.body.membroSetorId,
   });
 
   res.json(membroSetor).status(200);
@@ -33,10 +33,10 @@ routes.get("/:id", async (req, res) => {
 routes.patch("/:id", async (req, res) => {
   const membroSetor = await db.update({
     id: req.params.id,
-    dataEntrada: req.body.dataEntrada,
-    dataSaida: req.body.dataSaida,
+    dataEntrada: new Date(req.body.dataEntrada),
+    dataSaida: new Date(req.body.dataSaida),
     setorId: req.body.setorId,
-    membroSetor: req.body.membroSetor,
+    membroSetorId: req.body.membroSetorId,
   });
   res.json(membroSetor).status(200);
 });
