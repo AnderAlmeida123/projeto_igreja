@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+  </head>
+  <body>
+    <h1>
+      <p>Eventos da Comunidade Cadastrados:</p>
+    </h1>
+    <table>
+      <tr>
+        <th>Data e Hora do Evento</th>
+        <th>Titulo do Evento</th>
+        <th>Descrição</th>
+        <th>Comunidade</th>
+        <th>Tipo do Evento</th>
+      </tr>
+      <% dados.forEach(function(calendario){ %>
+      <tr>
+        <td><%= calendario.dataHora %></td>
+        <td><%= calendario.tituloEvento %></td>
+        <td><%= calendario.descricao.toJSON() %></td>
+        <td><%= calendario.comunidadeId %></td>
+        <td><%= calendario.tipoEventoId %></td>
+      </tr>
+      <% }) %>
+    </table>
+  </body>
+</html>

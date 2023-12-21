@@ -2,13 +2,19 @@ import express from "express";
 
 import cors from "cors";
 import routes from "./rotas";
+import path from "path";
+
+import rotasFront from "./rotas-front";
 
 const app = express();
 
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use("/", routes);
+app.use("/", rotasFront);
+app.use("/api/", routes);
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "./views"));
 
 app.use((err: any, req: any, res: any, next: any) => {
   // set locals, only providing error in development
