@@ -12,21 +12,28 @@
     <h1>
       <p>Eventos da Comunidade Cadastrados:</p>
     </h1>
-    <table>
+    <table border="1">
       <tr>
         <th>Data e Hora do Evento</th>
         <th>Titulo do Evento</th>
         <th>Descrição</th>
         <th>Comunidade</th>
-        <th>Tipo do Evento</th>
+        <th>Tipo do Evento<a href="/calendario/novo">Cadastrar</a></th>
       </tr>
+
       <% dados.forEach(function(calendario){ %>
+
       <tr>
         <td><%= calendario.dataHora %></td>
         <td><%= calendario.tituloEvento %></td>
         <td><%= calendario.descricao.toJSON() %></td>
-        <td><%= calendario.comunidadeId %></td>
-        <td><%= calendario.tipoEventoId %></td>
+        <td>
+          <%= calendario.comunidadeId ? calendario.comunidade.nomeComunidade :
+          ''%>
+        </td>
+        <td>
+          <%= calendario.tipoEventoId ? calendario.tipoEvento.tipoEvento : ''%>
+        </td>
       </tr>
       <% }) %>
     </table>

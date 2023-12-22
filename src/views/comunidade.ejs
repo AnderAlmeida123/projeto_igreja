@@ -12,18 +12,26 @@
     <h1>
       <p>Comunidades Cadastradas:</p>
     </h1>
-    <table>
+    <table border="1">
       <tr>
         <th>Nome da Comunidade</th>
         <th>Bairro</th>
         <th>Responsavel sobre a Comunidade</th>
+        <th>Ações<a href="/comunidade/novo">Cadastrar</a></th>
       </tr>
 
       <% dados.forEach(function(comunidade){ %>
       <tr>
         <td><%= comunidade.nomeComunidade %></td>
         <td><%= comunidade.bairro %></td>
-        <td><%= comunidade.responsavelId %></td>
+        <td>
+          <%= comunidade.responsavelId ? comunidade.responsavel.nome : '' %>
+        </td>
+        <td>
+          <a href="/comunidade/<%= comunidade.id %>">
+            <button>Editar</button>
+          </a>
+        </td>
       </tr>
       <% }) %>
     </table>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+  </head>
+  <body>
+    <h1>
+      <p>Dizimo Situação</p>
+    </h1>
+    <div>
+      <form action="/dizimo" method="POST">
+        <input type="hidden" name="id" value="<%= id %>" />
+
+        <label for="meses">Mês pago</label>
+        <input name="meses" value="<%= meses %>" />
+
+        <label for="valor">Valor</label>
+        <input name="valor" value="<%= valor %>" />
+
+        <label for="tipoPagamento">Forma de Pagamento</label>
+        <input name="tipoPagamento" value="<%= tipoPagamento %>" />
+
+        <label for="pessoaId">Pessoa Vinculada</label>
+        <select name="pessoaId">
+          <option>Selecione</option>
+          <% pessoas.forEach(function(pessoa){ %>
+          <option value="<%= pessoa.id %>" <%= pessoa.id === pessoaId ? 'selected' : '' %>>
+            <%= pessoa.nome %>
+        </option>
+          <% }) %>
+        </select>
+
+        <button type="submit">Salvar</button>
+      </form>
+    </div>
+  </body>
+</html>

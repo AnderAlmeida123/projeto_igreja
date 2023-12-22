@@ -22,7 +22,11 @@ export async function create(data: dizimo) {
 
 export async function readAll() {
   await prisma.$connect();
-  const dizimos = await prisma.dizimo.findMany();
+  const dizimos = await prisma.dizimo.findMany({
+    include: {
+      pessoa: true,
+    },
+  });
   await prisma.$disconnect();
   return dizimos;
 }

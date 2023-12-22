@@ -22,7 +22,13 @@ export async function create(data: estoque) {
 
 export async function readAll() {
   await prisma.$connect();
-  const estoques = await prisma.estoque.findMany();
+  const estoques = await prisma.estoque.findMany({
+    include: {
+      setor: true,
+      responsavel: true,
+      comunidade: true,
+    },
+  });
   await prisma.$disconnect();
   return estoques;
 }

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+  </head>
+  <body >
+    <h1>
+      <p>Endereço</p>
+    </h1>
+    <div border="1">
+      <form action="/endereco" method="POST">
+        <input type="hidden" name="id" value="<%= id %>" />
+
+        <label for="cep">Cep</label>
+        <input name="cep" value="<%= cep %>" />
+
+        <label for="estado">Estado</label>
+        <input name="estado" value="<%= estado %>" />
+
+        <label for="cidade">Cidade</label>
+        <input name="cidade" value="<%= cidade %>" />
+
+        <label for="bairro">Bairro</label>
+        <input name="bairro" value="<%= bairro %>" />
+
+        <label for="rua">Rua</label>
+        <input name="rua" value="<%= rua %>" />
+        
+        <label for="numero">numero</label>
+        <input name="numero" value="<%= numero %>" />
+
+        <label for="referencia">referencia</label>
+        <input name="referencia" value="<%= referencia %>" />
+
+        <label for="pessoaId">Pessoa Vinculada</label>
+        <select name="pessoaId">
+          <option>Selecione</option>
+          <% pessoas.forEach(function(pessoa){ %>
+          <option value="<%= pessoa.id %>" <%= pessoa.id === pessoaId ? 'selected' : '' %>>
+            <%= pessoa.nome %>
+        </option>
+          <% }) %>
+        </select>
+
+        <button type="submit">Salvar</button>
+      </form>
+    </div>
+  </body>
+</html>

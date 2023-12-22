@@ -22,7 +22,12 @@ export async function create(data: calendario) {
 
 export async function readAll() {
   await prisma.$connect();
-  const calendarios = await prisma.calendario.findMany();
+  const calendarios = await prisma.calendario.findMany({
+    include: {
+      comunidade: true,
+      tipoDoEvento: true,
+    },
+  });
   await prisma.$disconnect();
   return calendarios;
 }

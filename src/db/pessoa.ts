@@ -23,7 +23,11 @@ export async function create(data: pessoa) {
 
 export async function readAll() {
   await prisma.$connect();
-  const pessoas = await prisma.pessoa.findMany();
+  const pessoas = await prisma.pessoa.findMany({
+    include: {
+      comunidade: true,
+    },
+  });
   await prisma.$disconnect();
   return pessoas;
 }

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+  </head>
+  <body>
+    <h1>
+      <p>Itens no Estoque</p>
+    </h1>
+    <div>
+      <form action="/estoque" method="POST">
+        <input type="hidden" name="id" value="<%= id %>" />
+
+        <label for="produto">Produto</label>
+        <input name="produto" value="<%= produto %>" />
+
+        <label for="quantidade">Quantidade</label>
+        <input name="quantidade" value="<%= quantidade %>" />
+
+        <label for="setorId">Setor do Produto</label>
+        <select name="setorId">
+          <option>Selecione</option>
+          <% setores.forEach(function(setor){ %>
+          <option value="<%= setor.id %>" <%= setor.id === setorId ? 'selected' : '' %>>
+            <%= setor.setor %>
+        </option>
+          <% }) %>
+        </select>
+        
+        <label for="responsavelId">Pessoa Responsavel</label>
+        <select name="responsavelId">
+          <option>Selecione</option>
+          <% pessoas.forEach(function(pessoa){ %>
+          <option value="<%= pessoa.id %>" <%= pessoa.id === responsavelId ? 'selected' : '' %>>
+            <%= pessoa.nome %>
+        </option>
+          <% }) %>
+        </select>
+
+        <label for="comunidadeId">Estoque da Comunidade</label>
+        <select name="comunidadeId">
+          <option>Selecione</option>
+          <% comunidades.forEach(function(comunidade){ %>
+          <option value="<%= comunidade.id %>" <%= comunidade.id === comunidadeId ? 'selected' : '' %>>
+            <%= comunidade.nomeComunidade %>
+        </option>
+          <% }) %>
+        </select>
+
+        <button type="submit">Salvar</button>
+      </form>
+    </div>
+  </body>
+</html>

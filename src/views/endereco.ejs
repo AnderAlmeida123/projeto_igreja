@@ -10,21 +10,31 @@
   </head>
   <body>
     <h1>
-      <p>endereco Pessoal:</p>
+      <p>Endereco</p>
     </h1>
-    <table>
+    <table border="1">
       <tr>
-        <th>cep</th>
-        <th>Telefone de Endereco</th>
-        <th>Email</th>
-        <th>Pessoa Relacionada</th>
+        <th>Cep</th>
+        <th>Estado</th>
+        <th>Cidade</th>
+        <th>Bairro</th>
+        <th>rua</th>
+        <th>numero</th>
+        <th>referencia</th>
+        <th>Pessoa Relacionada <a href="/endereco/novo">Cadastrar</a></th>
       </tr>
       <% dados.forEach(function(endereco){ %>
       <tr>
-        <td><%= endereco.celular %></td>
-        <td><%= endereco.telendereco %></td>
-        <td><%= endereco.email %></td>
-        <td><%= endereco.pessoalId %></td>
+        <td><%= endereco.cep %></td>
+        <td><%= endereco.estado %></td>
+        <td><%= endereco.cidade %></td>
+        <td><%= endereco.bairro %></td>
+        <td><%= endereco.rua %></td>
+        <td><%= endereco.numero %></td>
+        <td><%= endereco.referencia %></td>
+        <td><%= endereco.pessoaId ? endereco.pessoa.nome : '' %></td>
+
+        <a href="endereco/<%= endereco.id %>"> <button>Editar</button></a>
       </tr>
       <% }) %>
     </table>

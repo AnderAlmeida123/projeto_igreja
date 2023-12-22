@@ -10,21 +10,25 @@
   </head>
   <body>
     <h1>
-      <p>Dizimo Situação:</p>
+      <p>Dizimo Situação</p>
     </h1>
-    <table>
+    <table border="1">
       <tr>
         <th>Mês Pago</th>
         <th>Valor</th>
         <th>Forma de Pagamento</th>
-        <th>Pessoa Vinculada</th>
+        <th>Pessoa Vinculada <a href="/dizimo/novo">Cadastar</a></th>
       </tr>
       <% dados.forEach(function(dizimo){ %>
       <tr>
         <td><%= dizimo.meses %></td>
         <td><%= dizimo.valor %></td>
         <td><%= dizimo.tipoPagamento %></td>
-        <td><%= dizimo.pessoalId %></td>
+        <td><%= dizimo.pessoaId ? dizimo.pessoa.nome : ''%></td>
+
+        <a href="dizimo/<%= dizimo.id  %>">
+          <button>Editar</button>
+        </a>
       </tr>
       <% }) %>
     </table>

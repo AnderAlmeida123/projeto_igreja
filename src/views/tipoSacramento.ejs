@@ -14,11 +14,17 @@
     </h1>
     <table>
       <tr>
-        <th>Nome dos Sacramentos</th>
+        <th>
+          Nome dos Sacramentos <a href="/tipoSacramento/novo">Cadastrar</a>
+        </th>
       </tr>
       <% dados.forEach(function(tipoSacramento){ %>
       <tr>
-        <td><%= tipoSacramento.tipoSacramento %></td>
+        <td>
+          <a href="tipoSacramento/<%= tipoSacramento.id %>"
+            ><%= tipoSacramento.tipoSacramento %></a
+          >
+        </td>
       </tr>
       <% }) %>
     </table>

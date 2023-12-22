@@ -10,23 +10,17 @@
   </head>
   <body>
     <h1>
-      <p>Tipos de Eventos</p>
+      <p>Tipo de Evento</p>
     </h1>
-    <table>
-      <tr>
-        <th>Tipo de Evento <a href="/tipoEvento/novo">Cadastrar</a></th>
-      </tr>
+    <div>
+      <form action="/tipoEvento" method="POST">
+        <input type="hidden" name="id" value="<%= id %>" />
 
-      <% dados.forEach(function(tipoEvento){ %>
+        <label for="tipoEvento">Tipo de Evento</label>
+        <input name="tipoEvento" value="<%= tipoEvento %>" />
 
-      <tr>
-        <td>
-          <a href="/tipoEvento/<%= tipoEvento.id %>"
-            ><%= tipoEvento.tipoEvento %></a
-          >
-        </td>
-      </tr>
-      <% }) %>
-    </table>
+        <button type="submit">Salvar</button>
+      </form>
+    </div>
   </body>
 </html>

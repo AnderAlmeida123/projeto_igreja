@@ -6,7 +6,7 @@ interface comunidade {
   id?: string;
   nomeComunidade: string;
   bairro: string;
-  responsavelId: string;
+  responsavelId?: string;
 }
 
 export async function create(data: comunidade) {
@@ -20,7 +20,11 @@ export async function create(data: comunidade) {
 
 export async function readAll() {
   await prisma.$connect();
-  const comunidades = await prisma.comunidade.findMany();
+  const comunidades = await prisma.comunidade.findMany({
+    include: {
+      responsavel: true,
+    },
+  });
   await prisma.$disconnect();
   return comunidades;
 }

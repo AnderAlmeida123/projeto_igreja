@@ -12,22 +12,29 @@
     <h1>
       <p>Itens no Estoque</p>
     </h1>
-    <table>
+    <table border="1">
       <tr>
         <th>Produto</th>
         <th>Quantidade</th>
         <th>Setor do Produto</th>
         <th>Pessoa Responsavel</th>
         <th>Estoque da Comunidade</th>
+        <th>Açoes <a href="/estoque/novo">Cadastrar</a></th>
       </tr>
 
       <% dados.forEach(function(estoque){ %>
       <tr>
         <td><%= estoque.produto %></td>
         <td><%= estoque.quantidade %></td>
-        <td><%= estoque.setorId %></td>
-        <td><%= estoque.responsavelId %></td>
-        <td><%= estoque.comunidadeId %></td>
+        <td><%= estoque.setorId ? estoque.setor.setor : '' %></td>
+        <td><%= estoque.responsavelId ? estoque.responsavel.nome : '' %></td>
+        <t>
+          <%= estoque.comunidadeId ? estoque.comunidade.nomeComunidade : ''
+          %></t
+        >
+        <td>
+          <a href="/estoque/<%= estoque.id  %>"> <button>Editar</button></a>
+        </td>
       </tr>
       <% }) %>
     </table>

@@ -21,7 +21,11 @@ export async function create(data: contato) {
 
 export async function readAll() {
   await prisma.$connect();
-  const contatos = await prisma.contato.findMany();
+  const contatos = await prisma.contato.findMany({
+    include: {
+      pessoa: true,
+    },
+  });
   await prisma.$disconnect();
   return contatos;
 }

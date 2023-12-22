@@ -25,7 +25,11 @@ export async function create(data: endereco) {
 
 export async function readAll() {
   await prisma.$connect();
-  const enderecos = await prisma.endereco.findMany();
+  const enderecos = await prisma.endereco.findMany({
+    include: {
+      pessoa: true,
+    },
+  });
   await prisma.$disconnect();
   return enderecos;
 }

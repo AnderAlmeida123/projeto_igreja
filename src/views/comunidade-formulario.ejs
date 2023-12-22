@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+  </head>
+  <body>
+    <h1>
+      <p>Comunidade</p>
+    </h1>
+    <div>
+      <form action="/comunidade" method="POST">
+        <input type="hidden" name="id" value="<%= id %>" />
+
+        <label for="nomeComunidade">Comunidade</label>
+        <input name="nomeComunidade" value="<%= nomeComunidade %>" />
+
+        <label for="bairro">bairro</label>
+        <input name="bairro" value="<%= bairro %>" />
+
+        <label for="responsavelId">Responsavel pela Comunidade</label>
+        <select name="responsavelId">
+          <option>Selecione</option>
+          <% pessoas.forEach(function(pessoa){ %>
+          <option value="<%= pessoa.id %>" <%= pessoa.id === responsavelId ? 'selected' : '' %>>
+            <%= pessoa.nome %>
+        </option>
+          <% }) %>
+        </select>
+
+        <button type="submit">Salvar</button>
+      </form>
+    </div>
+  </body>
+</html>
