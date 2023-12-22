@@ -3,29 +3,35 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Page Title</title>
+    <title>Sacramento</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     <script src="main.js"></script>
   </head>
   <body>
     <h1>
-      <p>Sacramentos</p>
+      <p>Sacramento</p>
     </h1>
-    <table>
+    <table border="1">
       <tr>
         <th>Local</th>
         <th>Dia e Horario</th>
         <th>Nome da Pessoa</th>
-        <th>Sacramento Consagração</th>
+        <th>
+          Sacramento de Consagração <a href="/sacramento/novo">Cadastrar</a>
+        </th>
       </tr>
 
       <% dados.forEach(function(sacramento){ %>
       <tr>
         <td><%= sacramento.localSacramento %></td>
-        <td><%= sacramento.dataHoraSacramento %></td>
-        <td><%= sacramento.pessoaId %></td>
-        <td><%= sacramento.tipoSacramentoId %></td>
+        <td><%= sacramento.dataHoraSacramento.toJSON() %></td>
+        <td><%= sacramento.pessoaId ? sacramento.pessoa.nome : ''%></td>
+        <td>
+          <%= sacramento.tipoSacramentoId ?
+          sacramento.tipoSacramento.tipoSacramento : '' %>
+        </td>
+        <td><a href="sacramento/<%= sacramento.id  %>"></a></td>
       </tr>
       <% }) %>
     </table>

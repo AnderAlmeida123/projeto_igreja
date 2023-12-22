@@ -21,7 +21,12 @@ export async function create(data: setor) {
 
 export async function readAll() {
   await prisma.$connect();
-  const setores = await prisma.setor.findMany();
+  const setores = await prisma.setor.findMany({
+    include: {
+      comunidade: true,
+      responsavel: true,
+    },
+  });
   await prisma.$disconnect();
   return setores;
 }

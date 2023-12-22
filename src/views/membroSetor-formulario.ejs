@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Cadastro de Membro do Setores</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+  </head>
+  <body>
+    <h1>
+      <p>Cadastro de Membros dos Setores</p>
+    </h1>
+    <div>
+      <form action="/membroSetor" method="POST">
+        <input type="hidden" name="id" value="<%= id %>" />
+
+        <label for="dataEntrada">Data de Entrada</label>
+        <input name="dataEntrada" value="<%= dataEntrada %>" type="date" /> 
+
+        <label for="dataSaida">Data de Saida</label>
+        <input name="dataSaida" value="<%= dataSaida %>" type="date" /> 
+
+        <label for="setorId">Setor Responsavel</label>
+        <select name="setorId">
+          <option>Selecione</option>
+          <% setores.forEach(function(setor){ %>
+          <option value="<%= setor.id %>" <%= setor.id === setorId? 'selected' : '' %>>
+            <%= setor.setor %>
+        </option>
+          <% }) %>
+        </select>
+
+        <label for="membroSetorId">Membro do Setor</label>
+        <select name="membroSetorId">
+          <option>Selecione</option>
+          <% pessoas.forEach(function(pessoa){ %>
+          <option value="<%= pessoa.id %>" <%= pessoa.id === membroSetorId? 'selected' : '' %>>
+            <%= pessoa.nome %>
+        </option>
+          <% }) %>
+        </select>
+
+        <button type="submit">Salvar</button>
+      </form>
+    </div>
+  </body>
+</html>

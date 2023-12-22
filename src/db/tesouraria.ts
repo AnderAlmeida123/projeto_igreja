@@ -23,7 +23,11 @@ export async function create(data: tesouraria) {
 
 export async function readAll() {
   await prisma.$connect();
-  const tesourarias = await prisma.tesouraria.findMany();
+  const tesourarias = await prisma.tesouraria.findMany({
+    include: {
+      comunidade: true,
+    },
+  });
   await prisma.$disconnect();
   return tesourarias;
 }

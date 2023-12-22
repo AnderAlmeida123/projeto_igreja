@@ -3,29 +3,33 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Page Title</title>
+    <title>Setor</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     <script src="main.js"></script>
   </head>
   <body>
     <h1>
-      <p>Setores</p>
+      <p>Setor</p>
     </h1>
-    <table>
+    <table border="1">
       <tr>
         <th>Descrição</th>
         <th>Nome do Setor</th>
         <th>Responsavel pelo setor</th>
         <th>Comunidade</th>
+        <th>Ações <a href="/setor/novo">Cadastrar</a></th>
       </tr>
       <% dados.forEach(function(setor){ %>
       <tr>
         <td><%= setor.descricao %></td>
         <td><%= setor.setor %></td>
-        <td><%= setor.responsavelId %></td>
-        <td><%= setor.comunidadeId %></td>
+        <td><%= setor.responsavelId ? setor.responsavel.nome : '' %></td>
+        <td>
+          <%= setor.comunidadeId ? setor.comunidade.nomeComunidade : '' %>
+        </td>
       </tr>
+      <a href="/setor/<%= setor.id %>"><button>Editar</button></a>
       <% }) %>
     </table>
   </body>

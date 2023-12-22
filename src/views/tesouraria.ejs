@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Page Title</title>
+    <title>Tesouraria</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     <script src="main.js"></script>
@@ -12,22 +12,28 @@
     <h1>
       <p>Tesouraria</p>
     </h1>
-    <table>
+    <table border="1">
       <tr>
         <th>Tipo de Movimentação</th>
         <th>Descrição</th>
         <th>Valor</th>
         <th>Data da Movimentação</th>
         <th>Comunidade</th>
+        <th>Ações <a href="/tesouraria/novo">Cadastrar</a></th>
       </tr>
       <% dados.forEach(function(tesouraria){ %>
       <tr>
         <td><%= tesouraria.tipoMovimentacao %></td>
         <td><%= tesouraria.descricao %></td>
         <td><%= tesouraria.valor %></td>
-        <td><%= tesouraria.dataMovimentacao %></td>
-        <td><%= tesouraria.comunidadeId %></td>
+        <td><%= tesouraria.dataMovimentacao.toJSON() %></td>
+        <td>
+          <%= tesouraria.comunidadeId ? tesouraria.comunidade.nomeComunidade :
+          '' %>
+        </td>
       </tr>
+      <a href="/tesouraria/<%= tesouraria.id %>"><button>Editar</button></a>
+
       <% }) %>
     </table>
   </body>

@@ -25,7 +25,6 @@ export async function readAll() {
   await prisma.$disconnect();
   return membroSetores;
 }
-
 export async function readOne(setorId: string, membroSetorId: string) {
   await prisma.$connect();
   const membroSetor = await prisma.membroSetor.findFirst({

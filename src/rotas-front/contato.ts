@@ -32,7 +32,7 @@ routes.post("/", async (req, res) => {
     contato = await db.create({
       celular: req.body.celular,
       telContato: req.body.telContato,
-      email: req.body.emial,
+      email: req.body.email,
       pessoaId: req.body.pessoaId,
     });
   } else {

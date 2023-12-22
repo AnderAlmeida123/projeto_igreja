@@ -3,30 +3,36 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Page Title</title>
+    <title>Membro do Setor</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     <script src="main.js"></script>
   </head>
   <body>
     <h1>
-      <p>Membros dos Setores</p>
+      <p>Membro do Setor</p>
     </h1>
-    <table>
+    <table border="1">
       <tr>
         <th>Data de Entrada</th>
         <th>Data de Saida</th>
         <th>Setor Responsavel</th>
         <th>Membro do Setor</th>
+        <th>Ações <a href="/membroSetor/novo">Cadastrar</a></th>
       </tr>
 
       <% dados.forEach(function(membroSetor){ %>
       <tr>
-        <td><%= membroSetor.dataEntrada %></td>
-        <td><%= membroSetor.dataSaida %></td>
-        <td><%= membroSetor.setorId %></td>
-        <td><%= membroSetor.membroSetorId%></td>
+        <td><%= membroSetor.dataEntrada.toJSON() %></td>
+        <td><%= membroSetor.dataSaida.toJSON() %></td>
+        <td><%= membroSetor.setorId ? membroSetor.setor.setor : '' %></td>
+        <td><%= membroSetor.membroSetorId ? membroSetor.pessoa.nome : '' %></td>
       </tr>
+      <td>
+        <a href="/membroSetor/ <%= membroSetor.id  %>"
+          ><button>Editar</button></a
+        >
+      </td>
       <% }) %>
     </table>
   </body>

@@ -3,22 +3,23 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Page Title</title>
+    <title>Pessoas Cadastradas</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     <script src="main.js"></script>
   </head>
   <body>
     <h1>
-      <p>Pessoas Cadastradas:</p>
+      <p>Pessoas Cadastradas</p>
     </h1>
-    <table>
+    <table border="1">
       <tr>
         <th>CPF</th>
         <th>Nome</th>
-        <th>Nascimento</th>
+        <th>Data de Nascimento</th>
         <th>Sexo</th>
         <th>Comunidade Pertencente</th>
+        <th>Ações <a href="/pessoa/novo">Cadastrar</a></th>
       </tr>
       <% dados.forEach(function(pessoa){ %>
       <tr>
@@ -26,7 +27,12 @@
         <td><%= pessoa.nome %></td>
         <td><%= pessoa.dataNascimento.toJSON() %></td>
         <td><%= pessoa.sexo %></td>
-        <td><%= pessoa.comunidadeId %></td>
+        <td>
+          <%= pessoa.comunidadeId ? pessoa.comunidade.nomeComunidade : '' %>
+        </td>
+        <td>
+          <a href="/pessoa/<%= pessoa.id  %>"> <button>Editar</button></a>
+        </td>
       </tr>
       <% }) %>
     </table>

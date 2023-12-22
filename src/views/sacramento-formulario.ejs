@@ -3,27 +3,24 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Cadastro de Contato</title>
+    <title>Cadastro de Sacramento</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     <script src="main.js"></script>
   </head>
   <body>
     <h1>
-      <p>Contato Pessoal</p>
+      <p>Cadastro de Sacramento</p>
     </h1>
     <div>
       <form action="/contato" method="POST">
         <input type="hidden" name="id" value="<%= id %>" />
 
-        <label for="Celular">Numero do Celular</label>
-        <input name="celular" value="<%= celular %>" />
+        <label for="localSacramento">Local</label>
+        <input name="localSacramento" value="<%= localSacramento %>" />
 
-        <label for="telContato">Telefone de Contato</label>
-        <input name="telContato" value="<%= telContato %>" />
-
-        <label for="email">Email</label>
-        <input name="email" value="<%= email %>" />
+        <label for="dataHoraSacramento">Dia e Hora</label>
+        <input name="dataHoraSacramento" value="<%= dataHoraSacramento %>" type="date" /> 
 
         <label for="pessoaId">Pessoa Relacionada</label>
         <select name="pessoaId">
@@ -31,6 +28,16 @@
           <% pessoas.forEach(function(pessoa){ %>
           <option value="<%= pessoa.id %>" <%= pessoa.id === pessoaId ? 'selected' : '' %>>
             <%= pessoa.nome %>
+        </option>
+          <% }) %>
+        </select>
+
+        <label for="tipoSacramentoId">Sacramento de Consagração</label>
+        <select name="tipoSacramentoId">
+          <option>Selecione</option>
+          <% tipoSacramentos.forEach(function(tipoSacramento){ %>
+          <option value="<%= tipoSacramento.id %>" <%= tipoSacramento.id === tipoSacramentoId? 'selected' : '' %>>
+            <%= tipoSacramento.tipoSacramento %>
         </option>
           <% }) %>
         </select>

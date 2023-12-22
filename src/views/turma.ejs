@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Page Title</title>
+    <title>Turma</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     <script src="main.js"></script>
@@ -12,22 +12,27 @@
     <h1>
       <p>Turma</p>
     </h1>
-    <table>
+    <table border="1">
       <tr>
         <th>Data de Inicial</th>
         <th>Data de Termino</th>
         <th>Nome da Turma</th>
         <th>Setor da turma</th>
         <th>Professor</th>
+        <th><a href="/turma/novo">Cadastrar</a></th>
       </tr>
       <% dados.forEach(function(turma){ %>
       <tr>
         <td><%= turma.dataInicio %></td>
         <td><%= turma.dataTermino %></td>
         <td><%= turma.turma %></td>
-        <td><%= turma.setorId %></td>
-        <td><%= turma.professorId %></td>
+        <td><%= turma.professorId ? turma.professor.nome : '' %></td>
+        <td><%= turma.setorId ? turma.setor.setor : '' %></td>
+        <td>
+          <a href="/turma/<%= turma.id  %>"> <button>Editar</button></a>
+        </td>
       </tr>
+
       <% }) %>
     </table>
   </body>

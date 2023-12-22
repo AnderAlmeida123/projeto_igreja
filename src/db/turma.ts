@@ -22,7 +22,12 @@ export async function create(data: turma) {
 
 export async function readAll() {
   await prisma.$connect();
-  const turmas = await prisma.turma.findMany();
+  const turmas = await prisma.turma.findMany({
+    include: {
+      professor: true,
+      setor: true,
+    },
+  });
   await prisma.$disconnect();
   return turmas;
 }

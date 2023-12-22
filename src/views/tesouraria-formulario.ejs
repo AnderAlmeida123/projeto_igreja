@@ -3,29 +3,31 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Cadastro Evento</title>
+    <title>Cadastro da Tesouraria</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     <script src="main.js"></script>
   </head>
   <body>
     <h1>
-      <p>Calendario de Eventos</p>
+      <p>Cadastro da Tesouraria</p>
     </h1>
     <div>
-      <form action="/calendario" method="POST">
+      <form action="/tesouraria" method="POST">
         <input type="hidden" name="id" value="<%= id %>" />
+        
+        <label for="tipoMovimentacao">Tipo de Movimentação</label>
+        <input name="tipoMovimentacao" value="<%= tipoMovimentacao %>" />
 
-        <label for="dataHora">Data e Hora do Evento</label>
-        <input name="dataHora" value="<%= dataHora %>" type="datetime-local" />
-        <br />
-
-        <label for="tituloEvento">Titulo do Evento</label>
-        <input name="tituloEvento" value="<%= tituloEvento %>" />
-        <br />
         <label for="descricao">Descrição</label>
         <input name="descricao" value="<%= descricao %>" />
-        <br />
+        
+        <label for="valor">Valor</label>
+        <input name="valor" value="<%= valor %>" />
+      
+        <label for="dataMovimentacao">Data da Movimentação</label>
+        <input name="dataMovimentacao" value="<%= dataMovimentacao %>" type="date" /> 
+              
         <label for="comunidadeId">Comunidade</label>
         <select name="comunidadeId">
           <option>Selecione</option>
@@ -35,19 +37,7 @@
         </option>
         <% }) %>
     </select>
-
-        <br />
-        <label for="tipoEventoId">Tipo do evento </label>
-        <select name="tipoEventoId">
-          <option>Selecione</option>
-          <% tiposEvento.forEach(function(tipoEvento){ %>
-          <option value="<%= tipoEvento.id %>" <%= tipoEvento.id === tipoEventoId ? 'selected' : '' %>>
-            <%= tipoEvento.tipoEvento %>
-        </option>
-          <% }) %>
-          
-        </select>
-        <br />
+        
         <button type="submit">Salvar</button>
       </form>
     </div>

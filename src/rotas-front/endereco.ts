@@ -46,6 +46,7 @@ routes.post("/", async (req, res) => {
     });
   } else {
     endereco = await db.update({
+      id: req.body.id,
       cep: req.body.cep,
       estado: dadosDoCep.uf,
       cidade: dadosDoCep.localidade,
